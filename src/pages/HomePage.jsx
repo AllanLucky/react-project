@@ -1,15 +1,19 @@
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
-import { products } from '../../starting-coder/data/products.js'
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import './HomePage.css';
 
-const HomePage = () => {
 
-  axios.get('http://localhost:3000/api/products')
-    .then((response) => {
-      console.log(response.data);
-    });
+const HomePage = () => {
+  const [products, setProduct] = useState([])
+
+  useEffect(() => {
+    axios.get('http://localhost:3000/api/products')
+      .then((response) => {
+        setProduct(response.data);
+      });
+  }, []);
   return (
     <>
       <title>Home Page</title>
