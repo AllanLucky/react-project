@@ -1,47 +1,71 @@
+import { Link } from 'react-router-dom';
 import './header.css';
-import './HomePage.css'
+import './HomePage.css';
+
 const HomePage = () => {
   return (
     <>
       <title>Home Page</title>
+
       <div className="header">
         <div className="left-section">
-          <a href="index.html" className="header-link">
-            <img className="logo"
-              src="images/logo-white.png" />
-            <img className="mobile-logo"
-              src="images/mobile-logo-white.png" />
-          </a>
+          <Link to="/" className="header-link">
+            <img
+              className="logo"
+              src="images/logo-white.png"
+              alt="Logo"
+            />
+            <img
+              className="mobile-logo"
+              src="images/mobile-logo-white.png"
+              alt="Mobile Logo"
+            />
+          </Link>
         </div>
 
         <div className="middle-section">
-          <input className="search-bar" type="text" placeholder="Search" />
+          <input
+            className="search-bar"
+            type="text"
+            placeholder="Search"
+          />
 
           <button className="search-button">
-            <img className="search-icon" src="images/icons/search-icon.png" />
+            <img
+              className="search-icon"
+              src="images/icons/search-icon.png"
+              alt="Search"
+            />
           </button>
         </div>
 
         <div className="right-section">
-          <a className="orders-link header-link" href="orders.html">
-
+          <Link className="orders-link header-link" to="/orders">
             <span className="orders-text">Orders</span>
-          </a>
+          </Link>
 
-          <a className="cart-link header-link" href="checkout.html">
-            <img className="cart-icon" src="images/icons/cart-icon.png" />
+          <Link className="cart-link header-link" to="/checkout">
+            <img
+              className="cart-icon"
+              src="images/icons/cart-icon.png"
+              alt="Cart"
+            />
             <div className="cart-quantity">3</div>
             <div className="cart-text">Cart</div>
-          </a>
+          </Link>
         </div>
       </div>
 
       <div className="home-page">
         <div className="products-grid">
+          {/* === Product 1 === */}
           <div className="product-container">
             <div className="product-image-container">
-              <img className="product-image"
-                src="images/products/athletic-cotton-socks-6-pairs.jpg" />
+              <img
+                className="product-image"
+                src="images/products/athletic-cotton-socks-6-pairs.jpg"
+                alt="Athletic Cotton Socks"
+              />
             </div>
 
             <div className="product-name limit-text-to-2-lines">
@@ -49,36 +73,30 @@ const HomePage = () => {
             </div>
 
             <div className="product-rating-container">
-              <img className="product-rating-stars"
-                src="images/ratings/rating-45.png" />
-              <div className="product-rating-count link-primary">
-                87
-              </div>
+              <img
+                className="product-rating-stars"
+                src="images/ratings/rating-45.png"
+                alt="Rating"
+              />
+              <div className="product-rating-count link-primary">87</div>
             </div>
 
-            <div className="product-price">
-              $10.90
-            </div>
+            <div className="product-price">$10.90</div>
 
             <div className="product-quantity-container">
               <select>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
+                {Array.from({ length: 10 }, (_, i) => (
+                  <option key={i + 1} value={i + 1}>
+                    {i + 1}
+                  </option>
+                ))}
               </select>
             </div>
 
             <div className="product-spacer"></div>
 
             <div className="added-to-cart">
-              <img src="images/icons/checkmark.png" />
+              <img src="images/icons/checkmark.png" alt="Added" />
               Added
             </div>
 
@@ -87,10 +105,14 @@ const HomePage = () => {
             </button>
           </div>
 
+          {/* === Product 2 === */}
           <div className="product-container">
             <div className="product-image-container">
-              <img className="product-image"
-                src="images/products/intermediate-composite-basketball.jpg" />
+              <img
+                className="product-image"
+                src="images/products/intermediate-composite-basketball.jpg"
+                alt="Basketball"
+              />
             </div>
 
             <div className="product-name limit-text-to-2-lines">
@@ -98,36 +120,30 @@ const HomePage = () => {
             </div>
 
             <div className="product-rating-container">
-              <img className="product-rating-stars"
-                src="images/ratings/rating-40.png" />
-              <div className="product-rating-count link-primary">
-                127
-              </div>
+              <img
+                className="product-rating-stars"
+                src="images/ratings/rating-40.png"
+                alt="Rating"
+              />
+              <div className="product-rating-count link-primary">127</div>
             </div>
 
-            <div className="product-price">
-              $20.95
-            </div>
+            <div className="product-price">$20.95</div>
 
             <div className="product-quantity-container">
               <select>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
+                {Array.from({ length: 10 }, (_, i) => (
+                  <option key={i + 1} value={i + 1}>
+                    {i + 1}
+                  </option>
+                ))}
               </select>
             </div>
 
             <div className="product-spacer"></div>
 
             <div className="added-to-cart">
-              <img src="images/icons/checkmark.png" />
+              <img src="images/icons/checkmark.png" alt="Added" />
               Added
             </div>
 
@@ -136,10 +152,14 @@ const HomePage = () => {
             </button>
           </div>
 
+          {/* === Product 3 === */}
           <div className="product-container">
             <div className="product-image-container">
-              <img className="product-image"
-                src="images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg" />
+              <img
+                className="product-image"
+                src="images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg"
+                alt="T-Shirt"
+              />
             </div>
 
             <div className="product-name limit-text-to-2-lines">
@@ -147,36 +167,30 @@ const HomePage = () => {
             </div>
 
             <div className="product-rating-container">
-              <img className="product-rating-stars"
-                src="images/ratings/rating-45.png" />
-              <div className="product-rating-count link-primary">
-                56
-              </div>
+              <img
+                className="product-rating-stars"
+                src="images/ratings/rating-45.png"
+                alt="Rating"
+              />
+              <div className="product-rating-count link-primary">56</div>
             </div>
 
-            <div className="product-price">
-              $7.99
-            </div>
+            <div className="product-price">$7.99</div>
 
             <div className="product-quantity-container">
               <select>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
+                {Array.from({ length: 10 }, (_, i) => (
+                  <option key={i + 1} value={i + 1}>
+                    {i + 1}
+                  </option>
+                ))}
               </select>
             </div>
 
             <div className="product-spacer"></div>
 
             <div className="added-to-cart">
-              <img src="images/icons/checkmark.png" />
+              <img src="images/icons/checkmark.png" alt="Added" />
               Added
             </div>
 
@@ -187,9 +201,7 @@ const HomePage = () => {
         </div>
       </div>
     </>
+  );
+};
 
-  )
-}
-
-
-export default HomePage
+export default HomePage;

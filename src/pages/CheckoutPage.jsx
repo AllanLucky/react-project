@@ -1,225 +1,214 @@
 import './checkout-header.css';
-import './CheckoutPage.css'
-const CheckoutPage = () => {
+import './CheckoutPage.css';
+import { Link } from 'react-router-dom';
 
+const CheckoutPage = () => {
   return (
     <>
       <title>Checkout</title>
-      <div className="checkout-header">
+
+      {/* ===== Header Section ===== */}
+      <header className="checkout-header">
         <div className="header-content">
+          {/* Left */}
           <div className="checkout-header-left-section">
-            <a href="index.html">
-              <img className="logo" src="images/logo.png" />
-              <img className="mobile-logo" src="images/mobile-logo.png" />
-            </a>
+            <Link to="/">
+              <img className="logo" src="images/logo.png" alt="Logo" />
+              <img className="mobile-logo" src="images/mobile-logo.png" alt="Mobile Logo" />
+            </Link>
           </div>
 
+          {/* Middle */}
           <div className="checkout-header-middle-section">
-            Checkout (<a className="return-to-home-link"
-              href="index.html">3 items</a>)
+            Checkout (
+            <Link className="return-to-home-link" to="/">
+              3 items
+            </Link>
+            )
           </div>
 
+          {/* Right */}
           <div className="checkout-header-right-section">
-            <img src="images/icons/checkout-lock-icon.png" />
+            <img src="images/icons/checkout-lock-icon.png" alt="Lock Icon" />
           </div>
         </div>
-      </div>
+      </header>
 
-      <div className="checkout-page">
-        <div className="page-title">Review your order</div>
+      {/* ===== Main Checkout Page ===== */}
+      <main className="checkout-page">
+        <h1 className="page-title">Review your order</h1>
 
         <div className="checkout-grid">
-          <div className="order-summary">
-            <div className="cart-item-container">
-              <div className="delivery-date">
-                Delivery date: Tuesday, June 21
-              </div>
+          {/* === Order Summary Section === */}
+          <section className="order-summary">
+            {/* First Item */}
+            <article className="cart-item-container">
+              <p className="delivery-date">Delivery date: Tuesday, June 21</p>
 
               <div className="cart-item-details-grid">
-                <img className="product-image"
-                  src="images/products/athletic-cotton-socks-6-pairs.jpg" />
+                <img
+                  className="product-image"
+                  src="images/products/athletic-cotton-socks-6-pairs.jpg"
+                  alt="Athletic Cotton Socks"
+                />
 
                 <div className="cart-item-details">
-                  <div className="product-name">
-                    Black and Gray Athletic Cotton Socks - 6 Pairs
-                  </div>
-                  <div className="product-price">
-                    $10.90
-                  </div>
+                  <h2 className="product-name">Black and Gray Athletic Cotton Socks - 6 Pairs</h2>
+                  <p className="product-price">$10.90</p>
                   <div className="product-quantity">
                     <span>
                       Quantity: <span className="quantity-label">2</span>
                     </span>
-                    <span className="update-quantity-link link-primary">
-                      Update
-                    </span>
-                    <span className="delete-quantity-link link-primary">
-                      Delete
-                    </span>
+                    <button className="update-quantity-link link-primary">Update</button>
+                    <button className="delete-quantity-link link-primary">Delete</button>
                   </div>
                 </div>
 
                 <div className="delivery-options">
-                  <div className="delivery-options-title">
-                    Choose a delivery option:
-                  </div>
-                  <div className="delivery-option">
-                    <input type="radio" checked
+                  <h3 className="delivery-options-title">Choose a delivery option:</h3>
+                  <label className="delivery-option">
+                    <input
+                      type="radio"
+                      defaultChecked
                       className="delivery-option-input"
-                      name="delivery-option-1" />
+                      name="delivery-option-1"
+                    />
                     <div>
-                      <div className="delivery-option-date">
-                        Tuesday, June 21
-                      </div>
-                      <div className="delivery-option-price">
-                        FREE Shipping
-                      </div>
+                      <p className="delivery-option-date">Tuesday, June 21</p>
+                      <p className="delivery-option-price">FREE Shipping</p>
                     </div>
-                  </div>
-                  <div className="delivery-option">
-                    <input type="radio"
+                  </label>
+
+                  <label className="delivery-option">
+                    <input
+                      type="radio"
                       className="delivery-option-input"
-                      name="delivery-option-1" />
+                      name="delivery-option-1"
+                    />
                     <div>
-                      <div className="delivery-option-date">
-                        Wednesday, June 15
-                      </div>
-                      <div className="delivery-option-price">
-                        $4.99 - Shipping
-                      </div>
+                      <p className="delivery-option-date">Wednesday, June 15</p>
+                      <p className="delivery-option-price">$4.99 - Shipping</p>
                     </div>
-                  </div>
-                  <div className="delivery-option">
-                    <input type="radio"
+                  </label>
+
+                  <label className="delivery-option">
+                    <input
+                      type="radio"
                       className="delivery-option-input"
-                      name="delivery-option-1" />
+                      name="delivery-option-1"
+                    />
                     <div>
-                      <div className="delivery-option-date">
-                        Monday, June 13
-                      </div>
-                      <div className="delivery-option-price">
-                        $9.99 - Shipping
-                      </div>
+                      <p className="delivery-option-date">Monday, June 13</p>
+                      <p className="delivery-option-price">$9.99 - Shipping</p>
                     </div>
-                  </div>
+                  </label>
                 </div>
               </div>
-            </div>
+            </article>
 
-            <div className="cart-item-container">
-              <div className="delivery-date">
-                Delivery date: Wednesday, June 15
-              </div>
+            {/* Second Item */}
+            <article className="cart-item-container">
+              <p className="delivery-date">Delivery date: Wednesday, June 15</p>
 
               <div className="cart-item-details-grid">
-                <img className="product-image"
-                  src="images/products/intermediate-composite-basketball.jpg" />
+                <img
+                  className="product-image"
+                  src="images/products/intermediate-composite-basketball.jpg"
+                  alt="Basketball"
+                />
 
                 <div className="cart-item-details">
-                  <div className="product-name">
-                    Intermediate Size Basketball
-                  </div>
-                  <div className="product-price">
-                    $20.95
-                  </div>
+                  <h2 className="product-name">Intermediate Size Basketball</h2>
+                  <p className="product-price">$20.95</p>
                   <div className="product-quantity">
                     <span>
                       Quantity: <span className="quantity-label">1</span>
                     </span>
-                    <span className="update-quantity-link link-primary">
-                      Update
-                    </span>
-                    <span className="delete-quantity-link link-primary">
-                      Delete
-                    </span>
+                    <button className="update-quantity-link link-primary">Update</button>
+                    <button className="delete-quantity-link link-primary">Delete</button>
                   </div>
                 </div>
 
                 <div className="delivery-options">
-                  <div className="delivery-options-title">
-                    Choose a delivery option:
-                  </div>
+                  <h3 className="delivery-options-title">Choose a delivery option:</h3>
+                  <label className="delivery-option">
+                    <input
+                      type="radio"
+                      className="delivery-option-input"
+                      name="delivery-option-2"
+                    />
+                    <div>
+                      <p className="delivery-option-date">Tuesday, June 21</p>
+                      <p className="delivery-option-price">FREE Shipping</p>
+                    </div>
+                  </label>
 
-                  <div className="delivery-option">
-                    <input type="radio" className="delivery-option-input"
-                      name="delivery-option-2" />
+                  <label className="delivery-option">
+                    <input
+                      type="radio"
+                      defaultChecked
+                      className="delivery-option-input"
+                      name="delivery-option-2"
+                    />
                     <div>
-                      <div className="delivery-option-date">
-                        Tuesday, June 21
-                      </div>
-                      <div className="delivery-option-price">
-                        FREE Shipping
-                      </div>
+                      <p className="delivery-option-date">Wednesday, June 15</p>
+                      <p className="delivery-option-price">$4.99 - Shipping</p>
                     </div>
-                  </div>
-                  <div className="delivery-option">
-                    <input type="radio" checked className="delivery-option-input"
-                      name="delivery-option-2" />
+                  </label>
+
+                  <label className="delivery-option">
+                    <input
+                      type="radio"
+                      className="delivery-option-input"
+                      name="delivery-option-2"
+                    />
                     <div>
-                      <div className="delivery-option-date">
-                        Wednesday, June 15
-                      </div>
-                      <div className="delivery-option-price">
-                        $4.99 - Shipping
-                      </div>
+                      <p className="delivery-option-date">Monday, June 13</p>
+                      <p className="delivery-option-price">$9.99 - Shipping</p>
                     </div>
-                  </div>
-                  <div className="delivery-option">
-                    <input type="radio" className="delivery-option-input"
-                      name="delivery-option-2" />
-                    <div>
-                      <div className="delivery-option-date">
-                        Monday, June 13
-                      </div>
-                      <div className="delivery-option-price">
-                        $9.99 - Shipping
-                      </div>
-                    </div>
-                  </div>
+                  </label>
                 </div>
               </div>
-            </div>
-          </div>
+            </article>
+          </section>
 
-          <div className="payment-summary">
-            <div className="payment-summary-title">
-              Payment Summary
+          {/* === Payment Summary Section === */}
+          <aside className="payment-summary">
+            <h2 className="payment-summary-title">Payment Summary</h2>
+
+            <div className="payment-summary-row">
+              <span>Items (3):</span>
+              <span className="payment-summary-money">$42.75</span>
             </div>
 
             <div className="payment-summary-row">
-              <div>Items (3):</div>
-              <div className="payment-summary-money">$42.75</div>
-            </div>
-
-            <div className="payment-summary-row">
-              <div>Shipping &amp; handling:</div>
-              <div className="payment-summary-money">$4.99</div>
+              <span>Shipping &amp; handling:</span>
+              <span className="payment-summary-money">$4.99</span>
             </div>
 
             <div className="payment-summary-row subtotal-row">
-              <div>Total before tax:</div>
-              <div className="payment-summary-money">$47.74</div>
+              <span>Total before tax:</span>
+              <span className="payment-summary-money">$47.74</span>
             </div>
 
             <div className="payment-summary-row">
-              <div>Estimated tax (10%):</div>
-              <div className="payment-summary-money">$4.77</div>
+              <span>Estimated tax (10%):</span>
+              <span className="payment-summary-money">$4.77</span>
             </div>
 
             <div className="payment-summary-row total-row">
-              <div>Order total:</div>
-              <div className="payment-summary-money">$52.51</div>
+              <strong>Order total:</strong>
+              <strong className="payment-summary-money">$52.51</strong>
             </div>
 
             <button className="place-order-button button-primary">
               Place your order
             </button>
-          </div>
+          </aside>
         </div>
-      </div>
+      </main>
     </>
-  )
+  );
+};
 
-}
-
-export default CheckoutPage
+export default CheckoutPage;
