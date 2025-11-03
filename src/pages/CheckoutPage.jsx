@@ -8,15 +8,33 @@ import './CheckoutPage.css';
 
 const CheckoutPage = ({ cart }) => {
   const [deliveryOption, setDeliveryOption] = useState([]);
+  const [paymentSummary, setPaymentSummary] = useState(null);
 
   useEffect(() => {
-    axios
-      .get('/api/delivery-options?expand=estimatedDeliveryTime')
-      .then((response) => setDeliveryOption(response.data))
-      .catch((error) =>
-        console.error('Error fetching delivery options:', error)
-      );
+    const fetchData = async () => {
+      try {
+        const [deliveryRes, paymentRes] = await Promise.all([
+          axios.get('/api/delivery-options?expand=estimatedDeliveryTime'),
+          axios.get('/api/payment-summary')
+        ]);
+        setDeliveryOption(deliveryRes.data);
+        setPaymentSummary(paymentRes.data);
+      } catch (error) {
+        console.error('Error fetching checkout data:', error);
+      }
+    };
+
+    fetchData();
   }, []);
+
+  // Safely access payment summary values
+  const totalItems = paymentSummary?.totalItems ?? cart.length;
+  const productCostCents = paymentSummary?.productCostCents ?? 0;
+  const shippingCostCents = paymentSummary?.shippingCostCents ?? 0;
+  const totalCostBeforeTaxCents =
+    paymentSummary?.totalCostBeforeTaxCents ?? 0;
+  const taxCents = paymentSummary?.taxCents ?? 0;
+  const totalCostCents = paymentSummary?.totalCostCents ?? 0;
 
   return (
     <>
@@ -34,9 +52,11 @@ const CheckoutPage = ({ cart }) => {
               cart.map((cartItem) => (
                 <article key={cartItem.id} className="cart-item-container">
                   <p className="delivery-date">
-                    {dayjs(deliveryOption.estimatedDeliveryTimeMs)
-                      .add(7, 'day')
-                      .format('MMMM D, YYYY')}
+                    {deliveryOption.length > 0
+                      ? dayjs(deliveryOption[0].estimatedDeliveryTimeMs)
+                        .add(7, 'day')
+                        .format('MMMM D, YYYY')
+                      : 'Loading...'}
                   </p>
 
                   <div className="cart-item-details-grid">
@@ -72,10 +92,7 @@ const CheckoutPage = ({ cart }) => {
                         Choose a delivery option:
                       </h3>
                       {deliveryOption.map((option) => (
-                        <label
-                          key={option.id}
-                          className="delivery-option"
-                        >
+                        <label key={option.id} className="delivery-option">
                           <input
                             type="radio"
                             defaultChecked
@@ -108,35 +125,38 @@ const CheckoutPage = ({ cart }) => {
             <h2 className="payment-summary-title">Payment Summary</h2>
 
             <div className="payment-summary-row">
-              <span>Items ({cart.length}):</span>
+              <span>Items ({totalItems}):</span>
               <span className="payment-summary-money">
-                {FormatMoney(
-                  cart.reduce(
-                    (sum, item) => sum + item.quantity * item.product.priceCents,
-                    0
-                  )
-                )}
+                {FormatMoney(productCostCents)}
               </span>
             </div>
 
             <div className="payment-summary-row">
               <span>Shipping &amp; handling:</span>
-              <span className="payment-summary-money">$4.99</span>
+              <span className="payment-summary-money">
+                {FormatMoney(shippingCostCents)}
+              </span>
             </div>
 
             <div className="payment-summary-row subtotal-row">
               <span>Total before tax:</span>
-              <span className="payment-summary-money">$47.74</span>
+              <span className="payment-summary-money">
+                {FormatMoney(totalCostBeforeTaxCents)}
+              </span>
             </div>
 
             <div className="payment-summary-row">
               <span>Estimated tax (10%):</span>
-              <span className="payment-summary-money">$4.77</span>
+              <span className="payment-summary-money">
+                {FormatMoney(taxCents)}
+              </span>
             </div>
 
             <div className="payment-summary-row total-row">
               <strong>Order total:</strong>
-              <strong className="payment-summary-money">$52.51</strong>
+              <strong className="payment-summary-money">
+                {FormatMoney(totalCostCents)}
+              </strong>
             </div>
 
             <button className="place-order-button button-primary">
