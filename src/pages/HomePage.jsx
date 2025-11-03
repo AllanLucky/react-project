@@ -1,27 +1,11 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 import Header from '../components/Header';
 import './HomePage.css';
 
-const HomePage = () => {
-  const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState([]);
-
-  useEffect(() => {
-    axios.get('/api/products')
-      .then((response) => setProducts(response.data))
-      .catch((error) => console.error('Error fetching products:', error));
-
-    axios.get('/api/cart-items')
-      .then((response) => setCart(response.data))
-      .catch((error) => console.error('Error fetching cart items:', error));
-  }, []);
-
+const HomePage = ({ cart, products }) => {
   return (
     <>
-      {/* Remove <title> from here — it doesn’t belong inside a React component */}
       <Header cart={cart} />
-      
+
       <div className="home-page">
         <div className="products-grid">
           {products.map((product) => (
