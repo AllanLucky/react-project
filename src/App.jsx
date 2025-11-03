@@ -7,22 +7,17 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 function App() {
-  const [products, setProducts] = useState([]); // ✅ Added this line
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/products')
-      .then((response) => setProducts(response.data))
-      .catch((error) => console.error('Error fetching products:', error));
-
-    axios.get('/api/cart-items')
+    axios.get('/api/cart-items?expand=product')
       .then((response) => setCart(response.data))
       .catch((error) => console.error('Error fetching cart items:', error));
   }, []);
 
   return (
     <Routes>
-      <Route path="/" element={<HomePage products={products} cart={cart} />} /> {/* ✅ Passed products */}
+      <Route path="/" element={<HomePage cart={cart} />} />
       <Route path="/checkout" element={<CheckoutPage cart={cart} />} />
       <Route path="/orders" element={<OrdersPage />} />
       <Route path="/tracking" element={<TrackingPage />} />

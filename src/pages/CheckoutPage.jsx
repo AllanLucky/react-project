@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import CheckoutHeader from '../components/CheckoutHeader';
+import FormatMoney from '../utils/Money';
 import './CheckoutPage.css';
-const CheckoutPage = () => {
+
+const CheckoutPage = ({ cart }) => {
   return (
     <>
-      <title>Checkout</title>
-      {/* ===== Main Checkout Page ===== */}
       <CheckoutHeader />
 
       <main className="checkout-page">
@@ -14,135 +14,78 @@ const CheckoutPage = () => {
         <div className="checkout-grid">
           {/* === Order Summary Section === */}
           <section className="order-summary">
-            {/* First Item */}
-            <article className="cart-item-container">
-              <p className="delivery-date">Delivery date: Tuesday, June 21</p>
+            {cart.length === 0 ? (
+              <p className="text-center text-gray-500">Your cart is empty.</p>
+            ) : (
+              cart.map((cartItem) => (
+                <article key={cartItem.id} className="cart-item-container">
+                  <p className="delivery-date">Delivery date: Tuesday, June 21</p>
 
-              <div className="cart-item-details-grid">
-                <img
-                  className="product-image"
-                  src="images/products/athletic-cotton-socks-6-pairs.jpg"
-                  alt="Athletic Cotton Socks"
-                />
+                  <div className="cart-item-details-grid">
+                    <img
+                      className="product-image"
+                      src={cartItem.product.image}
+                      alt={cartItem.product.name}
+                    />
 
-                <div className="cart-item-details">
-                  <h2 className="product-name">Black and Gray Athletic Cotton Socks - 6 Pairs</h2>
-                  <p className="product-price">$10.90</p>
-                  <div className="product-quantity">
-                    <span>
-                      Quantity: <span className="quantity-label">2</span>
-                    </span>
-                    <button className="update-quantity-link link-primary">Update</button>
-                    <button className="delete-quantity-link link-primary">Delete</button>
+                    <div className="cart-item-details">
+                      <h2 className="product-name">{cartItem.product.name}</h2>
+                      <p className="product-price">
+                        {FormatMoney(cartItem.product.priceCents)}
+                      </p>
+                      <div className="product-quantity">
+                        <span>
+                          Quantity:{" "}
+                          <span className="quantity-label">{cartItem.quantity}</span>
+                        </span>
+                        <button className="update-quantity-link link-primary">Update</button>
+                        <button className="delete-quantity-link link-primary">Delete</button>
+                      </div>
+                    </div>
+
+                    <div className="delivery-options">
+                      <h3 className="delivery-options-title">Choose a delivery option:</h3>
+                      <label className="delivery-option">
+                        <input
+                          type="radio"
+                          defaultChecked
+                          className="delivery-option-input"
+                          name={`delivery-option-${cartItem.id}`}
+                        />
+                        <div>
+                          <p className="delivery-option-date">Tuesday, June 21</p>
+                          <p className="delivery-option-price">FREE Shipping</p>
+                        </div>
+                      </label>
+
+                      <label className="delivery-option">
+                        <input
+                          type="radio"
+                          className="delivery-option-input"
+                          name={`delivery-option-${cartItem.id}`}
+                        />
+                        <div>
+                          <p className="delivery-option-date">Wednesday, June 15</p>
+                          <p className="delivery-option-price">$4.99 - Shipping</p>
+                        </div>
+                      </label>
+
+                      <label className="delivery-option">
+                        <input
+                          type="radio"
+                          className="delivery-option-input"
+                          name={`delivery-option-${cartItem.id}`}
+                        />
+                        <div>
+                          <p className="delivery-option-date">Monday, June 13</p>
+                          <p className="delivery-option-price">$9.99 - Shipping</p>
+                        </div>
+                      </label>
+                    </div>
                   </div>
-                </div>
-
-                <div className="delivery-options">
-                  <h3 className="delivery-options-title">Choose a delivery option:</h3>
-                  <label className="delivery-option">
-                    <input
-                      type="radio"
-                      defaultChecked
-                      className="delivery-option-input"
-                      name="delivery-option-1"
-                    />
-                    <div>
-                      <p className="delivery-option-date">Tuesday, June 21</p>
-                      <p className="delivery-option-price">FREE Shipping</p>
-                    </div>
-                  </label>
-
-                  <label className="delivery-option">
-                    <input
-                      type="radio"
-                      className="delivery-option-input"
-                      name="delivery-option-1"
-                    />
-                    <div>
-                      <p className="delivery-option-date">Wednesday, June 15</p>
-                      <p className="delivery-option-price">$4.99 - Shipping</p>
-                    </div>
-                  </label>
-
-                  <label className="delivery-option">
-                    <input
-                      type="radio"
-                      className="delivery-option-input"
-                      name="delivery-option-1"
-                    />
-                    <div>
-                      <p className="delivery-option-date">Monday, June 13</p>
-                      <p className="delivery-option-price">$9.99 - Shipping</p>
-                    </div>
-                  </label>
-                </div>
-              </div>
-            </article>
-
-            {/* Second Item */}
-            <article className="cart-item-container">
-              <p className="delivery-date">Delivery date: Wednesday, June 15</p>
-
-              <div className="cart-item-details-grid">
-                <img
-                  className="product-image"
-                  src="images/products/intermediate-composite-basketball.jpg"
-                  alt="Basketball"
-                />
-
-                <div className="cart-item-details">
-                  <h2 className="product-name">Intermediate Size Basketball</h2>
-                  <p className="product-price">$20.95</p>
-                  <div className="product-quantity">
-                    <span>
-                      Quantity: <span className="quantity-label">1</span>
-                    </span>
-                    <button className="update-quantity-link link-primary">Update</button>
-                    <button className="delete-quantity-link link-primary">Delete</button>
-                  </div>
-                </div>
-
-                <div className="delivery-options">
-                  <h3 className="delivery-options-title">Choose a delivery option:</h3>
-                  <label className="delivery-option">
-                    <input
-                      type="radio"
-                      className="delivery-option-input"
-                      name="delivery-option-2"
-                    />
-                    <div>
-                      <p className="delivery-option-date">Tuesday, June 21</p>
-                      <p className="delivery-option-price">FREE Shipping</p>
-                    </div>
-                  </label>
-
-                  <label className="delivery-option">
-                    <input
-                      type="radio"
-                      defaultChecked
-                      className="delivery-option-input"
-                      name="delivery-option-2"
-                    />
-                    <div>
-                      <p className="delivery-option-date">Wednesday, June 15</p>
-                      <p className="delivery-option-price">$4.99 - Shipping</p>
-                    </div>
-                  </label>
-
-                  <label className="delivery-option">
-                    <input
-                      type="radio"
-                      className="delivery-option-input"
-                      name="delivery-option-2"
-                    />
-                    <div>
-                      <p className="delivery-option-date">Monday, June 13</p>
-                      <p className="delivery-option-price">$9.99 - Shipping</p>
-                    </div>
-                  </label>
-                </div>
-              </div>
-            </article>
+                </article>
+              ))
+            )}
           </section>
 
           {/* === Payment Summary Section === */}
@@ -150,8 +93,16 @@ const CheckoutPage = () => {
             <h2 className="payment-summary-title">Payment Summary</h2>
 
             <div className="payment-summary-row">
-              <span>Items (3):</span>
-              <span className="payment-summary-money">$42.75</span>
+              <span>Items ({cart.length}):</span>
+              <span className="payment-summary-money">
+                $
+                {cart
+                  .reduce(
+                    (sum, item) => sum + item.quantity * item.product.priceCents,
+                    0
+                  )
+                  .toFixed(2) / 100}
+              </span>
             </div>
 
             <div className="payment-summary-row">
@@ -185,4 +136,3 @@ const CheckoutPage = () => {
 };
 
 export default CheckoutPage;
-
