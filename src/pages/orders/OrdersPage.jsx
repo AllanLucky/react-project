@@ -1,10 +1,10 @@
 import { useEffect, useState, Fragment } from 'react';
-import Header from '../components/Header';
+import Header from '../../components/Header';
 import './orderspage.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import dayjs from 'dayjs';
-import FormatMoney from '../utils/Money';
+import FormatMoney from '../../utils/Money';
 
 const OrdersPage = ({ cart }) => {
   const [orders, setOrders] = useState([]);

@@ -1,0 +1,57 @@
+import FormatMoney from "../../utils/Money";
+
+const PaymentSummary = ({
+  totalItems,
+  productCostCents,
+  shippingCostCents,
+  totalCostBeforeTaxCents,
+  taxCents,
+  totalCostCents,
+}) => {
+  return (
+    <aside className="payment-summary">
+      <h2 className="payment-summary-title">Payment Summary</h2>
+
+      <div className="payment-summary-row">
+        <span>Items ({totalItems}):</span>
+        <span className="payment-summary-money">
+          {FormatMoney(productCostCents)}
+        </span>
+      </div>
+
+      <div className="payment-summary-row">
+        <span>Shipping &amp; handling:</span>
+        <span className="payment-summary-money">
+          {FormatMoney(shippingCostCents)}
+        </span>
+      </div>
+
+      <div className="payment-summary-row subtotal-row">
+        <span>Total before tax:</span>
+        <span className="payment-summary-money">
+          {FormatMoney(totalCostBeforeTaxCents)}
+        </span>
+      </div>
+
+      <div className="payment-summary-row">
+        <span>Estimated tax (10%):</span>
+        <span className="payment-summary-money">
+          {FormatMoney(taxCents)}
+        </span>
+      </div>
+
+      <div className="payment-summary-row total-row">
+        <strong>Order total:</strong>
+        <strong className="payment-summary-money">
+          {FormatMoney(totalCostCents)}
+        </strong>
+      </div>
+
+      <button className="place-order-button button-primary">
+        Place your order
+      </button>
+    </aside>
+  );
+};
+
+export default PaymentSummary;

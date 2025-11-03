@@ -1,0 +1,74 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+
+import CheckoutHeader from "../../components/CheckoutHeader";
+import OrderSummary from "./OrderSummary";
+import PaymentSummary from "./PaymentSummary";
+import "../../utils/Money"; // ensures utility is included if needed globally
+import "./checkoutpage.css";
+
+const CheckoutPage = ({ cart }) => {
+  const [deliveryOption, setDeliveryOption] = useState([]);
+  const [paymentSummary, setPaymentSummary] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [deliveryRes, paymentRes] = await Promise.all([
+          axios.get("/api/delivery-options?expand=estimatedDeliveryTime"),
+          axios.get("/api/payment-summary"),
+        ]);
+
+        setDeliveryOption(deliveryRes.data);
+        setPaymentSummary(paymentRes.data);
+      } catch (error) {
+        console.error("Error fetching checkout data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // ✅ Conditional values — safe fallback if paymentSummary not yet loaded
+  const totalItems = paymentSummary?.totalItems ?? cart.length;
+  const productCostCents = paymentSummary?.productCostCents ?? 0;
+  const shippingCostCents = paymentSummary?.shippingCostCents ?? 0;
+  const totalCostBeforeTaxCents = paymentSummary?.totalCostBeforeTaxCents ?? 0;
+  const taxCents = paymentSummary?.taxCents ?? 0;
+  const totalCostCents = paymentSummary?.totalCostCents ?? 0;
+
+  return (
+    <>
+      <CheckoutHeader />
+
+      <main className="checkout-page">
+        <h1 className="page-title">Review your order</h1>
+
+        <div className="checkout-grid">
+          {/* === 🛒 Order Summary Section === */}
+          <OrderSummary cart={cart} deliveryOption={deliveryOption} />
+
+          {/* === 💳 Payment Summary Section === */}
+          {paymentSummary ? (
+            <PaymentSummary
+              paymentSummary={paymentSummary}
+              totalItems={totalItems}
+              productCostCents={productCostCents}
+              shippingCostCents={shippingCostCents}
+              totalCostBeforeTaxCents={totalCostBeforeTaxCents}
+              taxCents={taxCents}
+              totalCostCents={totalCostCents}
+            />
+          ) : (
+            <div className="loading-summary">
+              <p>Loading payment details...</p>
+            </div>
+          )}
+        </div>
+      </main>
+    </>
+  );
+};
+
+export default CheckoutPage;
