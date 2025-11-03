@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 import CheckoutHeader from "../../components/CheckoutHeader";
 import OrderSummary from "./OrderSummary";
 import PaymentSummary from "./PaymentSummary";
-import "../../utils/Money"; // ensures utility is included if needed globally
+import FormatMoney from "../../utils/Money"; // ✅ Correct import (not just inclusion)
 import "./checkoutpage.css";
 
 const CheckoutPage = ({ cart }) => {
   const [deliveryOption, setDeliveryOption] = useState([]);
   const [paymentSummary, setPaymentSummary] = useState(null);
+  const [loading, setLoading] = useState(true); // optional loading state
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,19 +25,29 @@ const CheckoutPage = ({ cart }) => {
         setPaymentSummary(paymentRes.data);
       } catch (error) {
         console.error("Error fetching checkout data:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchData();
   }, []);
 
-  // ✅ Conditional values — safe fallback if paymentSummary not yet loaded
+  // ✅ Safely access payment summary values with fallbacks
   const totalItems = paymentSummary?.totalItems ?? cart.length;
   const productCostCents = paymentSummary?.productCostCents ?? 0;
   const shippingCostCents = paymentSummary?.shippingCostCents ?? 0;
   const totalCostBeforeTaxCents = paymentSummary?.totalCostBeforeTaxCents ?? 0;
   const taxCents = paymentSummary?.taxCents ?? 0;
   const totalCostCents = paymentSummary?.totalCostCents ?? 0;
+
+  if (loading) {
+    return (
+      <main className="checkout-page loading-page">
+        <p>Loading checkout details...</p>
+      </main>
+    );
+  }
 
   return (
     <>
@@ -46,10 +57,10 @@ const CheckoutPage = ({ cart }) => {
         <h1 className="page-title">Review your order</h1>
 
         <div className="checkout-grid">
-          {/* === 🛒 Order Summary Section === */}
+          {/* 🛒 Order Summary Section */}
           <OrderSummary cart={cart} deliveryOption={deliveryOption} />
 
-          {/* === 💳 Payment Summary Section === */}
+          {/* 💳 Payment Summary Section */}
           {paymentSummary ? (
             <PaymentSummary
               paymentSummary={paymentSummary}
@@ -72,3 +83,4 @@ const CheckoutPage = ({ cart }) => {
 };
 
 export default CheckoutPage;
+
