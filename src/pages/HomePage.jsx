@@ -8,9 +8,16 @@ const HomePage = ({ cart }) => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/products')
-      .then((response) => setProducts(response.data))
-      .catch((error) => console.error('Error fetching products:', error));
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('/api/products');
+        setProducts(response.data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+
+    fetchProducts();
   }, []);
 
   return (
