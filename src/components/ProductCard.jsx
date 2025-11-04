@@ -1,6 +1,6 @@
 import React from "react";
 import Products from "./Products";
-import FormatMoney from "../utils/Money"; // Keep imports organized (external, then internal)
+import FormatMoney from "../utils/Money";
 
 const ProductCard = ({ products = [], fetchCartItems }) => {
   if (!products.length) {
