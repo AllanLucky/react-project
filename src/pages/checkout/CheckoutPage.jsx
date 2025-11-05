@@ -6,7 +6,7 @@ import PaymentSummary from "./PaymentSummary";
 import { toast } from "react-toastify";
 import "./checkoutpage.css";
 
-const CheckoutPage = ({ cart, fetchCartItems }) => {
+const CheckoutPage = ({ cart = [], fetchCartItems = () => { } }) => { // ✅ default values to prevent "not a function" error
   const [deliveryOption, setDeliveryOption] = useState([]);
   const [paymentSummary, setPaymentSummary] = useState(null);
   const [loading, setLoading] = useState(true);

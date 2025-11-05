@@ -11,9 +11,9 @@ const PaymentSummary = ({
   totalCostCents,
   fetchCartItems,
 }) => {
-  const navigate = useNavigate(); // ✅ hook must be called at top level
+  const navigate = useNavigate(); 
 
-  const createOrder = async () => { // ✅ must be async to use await
+  const createOrder = async () => { 
     await axios.post("/api/orders");
     await fetchCartItems();
     navigate("/orders");
