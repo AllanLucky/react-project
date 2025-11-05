@@ -1,6 +1,6 @@
 import axios from "axios";
 import FormatMoney from "../../utils/Money";
-import { useNavigate } from "react-router-dom"; // ✅ corrected import
+import { useNavigate } from "react-router-dom";
 
 const PaymentSummary = ({
   totalItems,
