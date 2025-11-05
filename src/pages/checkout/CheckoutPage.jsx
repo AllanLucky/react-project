@@ -91,6 +91,7 @@ const CheckoutPage = ({ cart, fetchCartItems }) => {
               totalCostBeforeTaxCents={totalCostBeforeTaxCents}
               taxCents={taxCents}
               totalCostCents={totalCostCents}
+              fetchCartItems={fetchCartItems}
             />
           ) : (
             <div className="loading-summary">

@@ -1,4 +1,6 @@
+import axios from "axios";
 import FormatMoney from "../../utils/Money";
+import { useNavigate } from "react-router-dom"; // ✅ corrected import
 
 const PaymentSummary = ({
   totalItems,
@@ -7,7 +9,16 @@ const PaymentSummary = ({
   totalCostBeforeTaxCents,
   taxCents,
   totalCostCents,
+  fetchCartItems,
 }) => {
+  const navigate = useNavigate(); // ✅ hook must be called at top level
+
+  const createOrder = async () => { // ✅ must be async to use await
+    await axios.post("/api/orders");
+    await fetchCartItems();
+    navigate("/orders");
+  };
+
   return (
     <aside className="payment-summary">
       <h2 className="payment-summary-title">Payment Summary</h2>
@@ -47,7 +58,10 @@ const PaymentSummary = ({
         </strong>
       </div>
 
-      <button className="place-order-button button-primary">
+      <button
+        className="place-order-button button-primary"
+        onClick={createOrder}
+      >
         Place your order
       </button>
     </aside>
